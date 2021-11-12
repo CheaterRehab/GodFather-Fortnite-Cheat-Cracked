@@ -181,7 +181,6 @@ int mouse_x, mouse_y;
 uint64_t offset_uworld;
 float zoom;
 bool isRecentlyRendered;
-unsigned char visCheckByte;
 
 int get_fps()
 {
@@ -463,7 +462,6 @@ void fn_esp() {
 
 		if (mesh != 0x00 && LocalTeamId != TeamId && (int)Foot.x != 0 && (int)Foot.z != 0)
 		{
-			visCheckByte = read<unsigned char>(mesh + 0x5ff);
 
 			RGBA Visible = { colors::skelcol[0] * 255, colors::skelcol[1] * 255, colors::skelcol[2] * 255, 255 };
 			RGBA Invisible = { colors::skelcolvi[0] * 255, colors::skelcolvi[1] * 255, colors::skelcolvi[2] * 255, 255 };

@@ -3,7 +3,7 @@ Crack of a detected Fortnite Cheat by the https://cheater.rehab/ team.
 mod aka !mod#9659 (ID: 597485373194764311) is a fraud
 
 This guy is selling a popular fortnite "Private" External called "GodFather". 
-The cheat that he is selling is a simple copy + paste and is detected to dear shit on EAC/BE. 
+The cheat that he is selling is a simple copy + paste and is detected to dear shit on EAC/BE. Loader wasnt even protected...
 
 Credits to: UCFoxi so the kid can paste off of his driver communication method.
  

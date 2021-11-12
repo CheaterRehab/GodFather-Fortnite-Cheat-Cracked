@@ -15,4 +15,6 @@ After a client-side bypass we have in keyauth to bypass the login it then runs a
 
 Simple anti-pasta has been added to the driver and the source code to avoid further pasting, it should be straightfoward to figure out if you have a half brain.
 
+there are precompiled binaries on the right side of this page, have fun.
+
 enjoy

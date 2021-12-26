@@ -345,14 +345,14 @@ void fn_cache() {
 		std::vector<FNlEntity> tmpList;
 
 		if (!offset_uworld)
-			offset_uworld = find_signature(E("\x48\x8B\x05\x00\x00\x00\x00\x4D\x8B\xC2"), E("xxx????xxx")) - sdk::module_base;
+			offset_uworld = find_signature(E("\x48\x89\x05\x00\x00\x00\x00\x48\x8B\x4B\x78"), E("xxx????xxxx")) - sdk::module_base; // changes sometimes
 
 		//printf("offset_uworld : 0x%llX\n", offset_uworld);
 
 		Uworld = read<uint64_t>(sdk::module_base + offset_uworld);
 		//printf("Uworld : 0x%llX\n", Uworld);
 
-		uint64_t GameInstance = read<uint64_t>(Uworld + 0x188);
+		uint64_t GameInstance = read<uint64_t>(Uworld + 0x190); // changes sometimes
 		//printf("GameInstance : 0x%llX\n", GameInstance);
 
 		LocalPlayers = read<uint64_t>(read<uint64_t>(GameInstance + 0x38));
@@ -361,7 +361,7 @@ void fn_cache() {
 		PlayerController = read<uint64_t>(LocalPlayers + 0x30);
 		//printf("PlayerController : 0x%llX\n", PlayerController);
 
-		LocalPawn = read<uint64_t>(PlayerController + 0x2A0);
+		LocalPawn = read<uint64_t>(PlayerController + 0x2A8); // changes sometimes
 		if (!LocalPawn)continue;
 		//printf("LocalPawn : 0x%llX\n", LocalPawn);
 
@@ -372,7 +372,7 @@ void fn_cache() {
 		LocalRelativeLocation = read<Vector3>(LocalRootcomp + 0x11C);
 		if (!IsVec3Valid(LocalRelativeLocation))continue;
 
-		uintptr_t GameState = read<uintptr_t>(Uworld + 0x128);
+		uintptr_t GameState = read<uintptr_t>(Uworld + 0x130); // changes sometimes
 		if (!GameState)continue;
 		//printf("GameState : 0x%llX\n", GameState);
 
@@ -401,10 +401,10 @@ void fn_cache() {
 			if (!curactorid)continue;
 			//printf("curactorid : %d\n", curactorid);
 
-			uint64_t PlayerState = read<uint64_t>(CurrentPawn + 0x240);
+			uint64_t PlayerState = read<uint64_t>(CurrentPawn + 0x238); //sometimes changes (same as LocalPlayerState)
 			if (!PlayerState)continue;
 
-			uint64_t LocalPlayerState = read<uint64_t>(LocalPawn + 0x240);
+			uint64_t LocalPlayerState = read<uint64_t>(LocalPawn + 0x238); //sometimes changes
 			if (!LocalPlayerState)continue;
 
 			if (mesh != 0x00 && PlayerState != 0x00 && LocalPlayerState != 0x00) {
@@ -451,13 +451,13 @@ void fn_esp() {
 
 		uint64_t LocalPlayerState = entity.LocalPlayerState;
 
-		uint32_t LocalTeamId = read<uint32_t>(LocalPlayerState + 0xEE0);
+		uint32_t LocalTeamId = read<uint32_t>(LocalPlayerState + 0xF28); //sometimes changes
 		if (!LocalTeamId)continue;
 
 		uint64_t PlayerState = entity.PlayerState;
 		if (!PlayerState)continue;
 
-		uint32_t TeamId = read<uint32_t>(PlayerState + 0xEE0);
+		uint32_t TeamId = read<uint32_t>(PlayerState + 0xF28); //sometimes changes
 		if (!TeamId)continue;
 
 		if (mesh != 0x00 && LocalTeamId != TeamId && (int)Foot.x != 0 && (int)Foot.z != 0)
@@ -643,7 +643,7 @@ void fn_esp() {
 					auto dy = vHeadBoneOut.y - (Height / 2);
 					auto dz = vHeadBoneOut.z - (Depth / 2);
 					auto dist = sqrtf(dx * dx + dy * dy + dz * dz) / 100.0f;
-					if (dist < aimbot::aimfov && dist < closestDistance && targetlocked == false && isRecentlyRendered) {
+					if (dist < aimbot::aimfov && dist < closestDistance && targetlocked == false/* && isRecentlyRendered*/) {
 						closestDistance = dist;
 						closestPawn = entity.Actor;
 					}
